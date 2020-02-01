@@ -1,23 +1,22 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MainApp {
 
 	public static void main(String[] args) {
-
+		// System.out.println("Hello App");
 		try {
 			Connection conn = GetConnection();
-			if (conn != null) {
-				System.out.println("Підключення успішне");
-			} else {
-				System.out.println("Проблеми при підключенні");
-			}
+			//GetVersionPostgres(conn);
+			InsertAuthor(conn,"Ñåìåí");
 
 		} catch (Exception e) {
-			System.out.println("У нас проблеми " + e.getMessage());
+			System.out.println("Ó íàñ ïðîáëåìè " + e.getMessage());
 		}
-
 	}
 
 	private static Connection GetConnection() throws SQLException, ClassNotFoundException {
@@ -25,11 +24,28 @@ public class MainApp {
 		String dbName = "paraskadb";
 		String userName = "vova";
 		String password = "Qwerty1-";
-
 		Class.forName("org.postgresql.Driver");
-
 		Connection conn = DriverManager.getConnection("jdbc:postgresql://" + hostName + ":5432/" + dbName, userName,
 				password);
 		return conn;
 	}
+
+	private static void GetVersionPostgres(Connection conn)
+			throws SQLException	{
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery("SELECT VERSION()");
+
+		if (rs.next()) {
+			System.out.println(rs.getString(1));
+		}
+	}
+
+	private static void InsertAuthor(Connection conn, String name)
+			throws SQLException	{
+        String query = "INSERT INTO authors(name) VALUES(?)";
+        PreparedStatement pst = conn.prepareStatement(query);
+        pst.setString(1, name);
+        pst.executeUpdate();
+	}
+
 }
