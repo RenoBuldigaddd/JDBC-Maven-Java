@@ -12,8 +12,7 @@ public class MainApp {
 		try {
 			Connection conn = GetConnection();
 			//GetVersionPostgres(conn);
-			InsertAuthor(conn,"YsataBasaDannihVDele");
-			SelectAuthor(conn);
+			InsertAuthor(conn,"Ñåìåí");
 
 		} catch (Exception e) {
 			System.out.println("Ó íàñ ïðîáëåìè " + e.getMessage());
@@ -48,16 +47,9 @@ public class MainApp {
         pst.setString(1, name);
         pst.executeUpdate();
 	}
-	private static void SelectAuthor(Connection conn) throws SQLException
+	private static void SelectAuthor(Connection conn, String name)
 	{
-		PreparedStatement pst = conn.prepareStatement("Select id, name from authors");
-		ResultSet rs = pst.executeQuery();
-		while(rs.next())
-		{
-			System.out.print(rs.getInt(1));
-			System.out.print(": ");
-			System.out.println(rs.getString(2));
-		}
+		
 	}
 
 }

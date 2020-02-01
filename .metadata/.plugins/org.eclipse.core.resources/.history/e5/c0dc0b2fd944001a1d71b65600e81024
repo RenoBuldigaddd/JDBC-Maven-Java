@@ -12,7 +12,7 @@ public class MainApp {
 		try {
 			Connection conn = GetConnection();
 			//GetVersionPostgres(conn);
-			InsertAuthor(conn,"YsataBasaDannihVDele");
+			//InsertAuthor(conn,"Ñåìåí");
 			SelectAuthor(conn);
 
 		} catch (Exception e) {
@@ -48,7 +48,7 @@ public class MainApp {
         pst.setString(1, name);
         pst.executeUpdate();
 	}
-	private static void SelectAuthor(Connection conn) throws SQLException
+	private static void SelectAuthor(Connection conn, String name) throws SQLException
 	{
 		PreparedStatement pst = conn.prepareStatement("Select id, name from authors");
 		ResultSet rs = pst.executeQuery();

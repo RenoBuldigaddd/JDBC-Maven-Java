@@ -12,7 +12,7 @@ public class MainApp {
 		try {
 			Connection conn = GetConnection();
 			//GetVersionPostgres(conn);
-			InsertAuthor(conn,"YsataBasaDannihVDele");
+			InsertAuthor(conn,"debil");
 			SelectAuthor(conn);
 
 		} catch (Exception e) {
